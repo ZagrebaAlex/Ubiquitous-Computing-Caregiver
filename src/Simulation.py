@@ -1,268 +1,191 @@
 import json
-import random
 import csv
+import os
+import random
 from datetime import datetime, timedelta
 
-INPUT_TOPOLOGY_FILE = "sensor_topology.json"
-OUTPUT_JSON_FILE = "sensor_simulation.json"
-OUTPUT_CSV_FILE = "sensor_simulation.csv"
+TOPOLOGY_FILE = "sensor_topology.json"
+SCENARIO_FOLDER = "scenarios"
+
+OUTPUT_JSON = "sensor_simulation.json"
+OUTPUT_CSV = "sensor_simulation.csv"
 
 START_TIME = datetime(2026, 1, 1, 0, 0)
+random.seed(42)
 
 
-def load_topology(filename):
-    with open(filename, "r") as file:
+def load_json(path):
+    with open(path, "r") as file:
         return json.load(file)
 
 
-def add_event(events, timestamp, sensor, value, scenario, danger_level):
-    events.append({
-        "timestamp": timestamp.isoformat(),
-        "sensor_id": sensor["sensor_id"],
-        "sensor_type": sensor["sensor_type"],
-        "location": sensor["location"],
-        "value": value,
-        "scenario": scenario,
-        "danger_level": danger_level
-    })
-
-
-def find_sensor(topology, sensor_type=None, location=None):
+def get_sensor(topology, sensor_id):
     for sensor in topology["sensors"]:
-        if sensor_type and sensor["sensor_type"] != sensor_type:
-            continue
-        if location and sensor["location"] != location:
-            continue
-        return sensor
-    return None
+        if sensor["sensor_id"] == sensor_id:
+            return sensor
+
+    raise ValueError(f"Sensor not found in topology: {sensor_id}")
 
 
-def random_motion(events, topology, start_time, end_time, scenario, danger_level):
-    pir_sensors = [
-        s for s in topology["sensors"]
-        if s["sensor_type"] == "PIR"
-    ]
+def add_random_jitter(timestamp, jitter_minutes):
+    if jitter_minutes <= 0:
+        return timestamp
 
-    current = start_time
-
-    while current < end_time:
-        sensor = random.choice(pir_sensors)
-
-        add_event(
-            events,
-            current,
-            sensor,
-            "MOTION",
-            scenario,
-            danger_level
-        )
-
-        current += timedelta(minutes=random.randint(15, 90))
+    random_offset = random.randint(-jitter_minutes, jitter_minutes)
+    return timestamp + timedelta(minutes=random_offset)
 
 
-def generate_normal_day(events, topology):
-    scenario = "Normal Day"
-    danger = "LOW"
-    base = START_TIME
+def load_scenario(path, topology, day_offset):
+    scenario_data = load_json(path)
 
-    bedroom = find_sensor(topology, "PIR", "Bedroom")
-    bathroom = find_sensor(topology, "PIR", "Bathroom")
-    kitchen = find_sensor(topology, "PIR", "Kitchen")
-    living = find_sensor(topology, "PIR", "Living Room")
-    fridge = find_sensor(topology, "CONTACT", "Kitchen")
-    stove = find_sensor(topology, "POWER", "Kitchen")
+    scenario_name = scenario_data["scenario"]
+    danger_level = scenario_data["danger_level"]
 
-    add_event(events, base.replace(hour=7), bedroom, "WAKE_UP", scenario, danger)
-    add_event(events, base.replace(hour=7, minute=10), bathroom, "MOTION", scenario, danger)
-    add_event(events, base.replace(hour=7, minute=25), kitchen, "MOTION", scenario, danger)
+    jitter_minutes = scenario_data.get("jitter_minutes", 0)
+    base_day = START_TIME + timedelta(days=day_offset)
 
-    random_motion(
-        events,
-        topology,
-        base.replace(hour=8),
-        base.replace(hour=22),
-        scenario,
-        danger
-    )
+    events = []
 
-    for hour in [8, 13, 19]:
-        meal_time = base.replace(hour=hour) + timedelta(minutes=random.randint(-10, 10))
+    for event in scenario_data["events"]:
+        sensor = get_sensor(topology, event["sensor_id"])
 
-        add_event(events, meal_time, fridge, "OPEN", scenario, danger)
-        add_event(events, meal_time + timedelta(minutes=random.randint(1, 3)), fridge, "CLOSED", scenario, danger)
+        timestamp = base_day + timedelta(minutes=event["offset_minutes"])
+        timestamp = add_random_jitter(timestamp, event.get("jitter_minutes", jitter_minutes))
 
-        add_event(events, meal_time + timedelta(minutes=5), stove, random.randint(900, 1800), scenario, danger)
-        add_event(events, meal_time + timedelta(minutes=random.randint(20, 35)), stove, 0, scenario, danger)
+        events.append({
+            "timestamp": timestamp.isoformat(),
+            "home_id": topology["home_id"],
+            "sensor_id": sensor["sensor_id"],
+            "sensor_type": sensor["sensor_type"],
+            "location": sensor["location"],
+            "value": event["value"],
+            "scenario": scenario_name,
+            "danger_level": danger_level
+        })
 
-    add_event(events, base.replace(hour=22, minute=30), bathroom, "MOTION", scenario, danger)
-    add_event(events, base.replace(hour=22, minute=45), bedroom, "SLEEP", scenario, danger)
-
-
-def generate_subtle_decline(events, topology):
-    scenario = "Subtle Decline"
-    danger = "MEDIUM"
-    base = START_TIME + timedelta(days=1)
-
-    bedroom = find_sensor(topology, "PIR", "Bedroom")
-    bathroom = find_sensor(topology, "PIR", "Bathroom")
-    living = find_sensor(topology, "PIR", "Living Room")
-    fridge = find_sensor(topology, "CONTACT", "Kitchen")
-
-    add_event(events, base.replace(hour=8), bedroom, "WAKE_UP", scenario, danger)
-    add_event(events, base.replace(hour=8, minute=20), bathroom, "MOTION", scenario, danger)
-
-    random_motion(
-        events,
-        topology,
-        base.replace(hour=8),
-        base.replace(hour=11),
-        scenario,
-        danger
-    )
-
-    fridge_open_time = base.replace(hour=9)
-    add_event(events, fridge_open_time, fridge, "OPEN", scenario, danger)
-    add_event(events, fridge_open_time + timedelta(hours=3), fridge, "STILL_OPEN", scenario, danger)
-    add_event(events, fridge_open_time + timedelta(hours=8), fridge, "CLOSED", scenario, danger)
-
-    add_event(events, base.replace(hour=11), living, "INACTIVE_START", scenario, danger)
-    add_event(events, base.replace(hour=17, minute=30), living, "INACTIVE_END", scenario, danger)
-
-
-def generate_acute_hazard(events, topology):
-    scenario = "Acute Hazard"
-    danger = "HIGH"
-    base = START_TIME + timedelta(days=2)
-
-    kitchen = find_sensor(topology, "PIR", "Kitchen")
-    living = find_sensor(topology, "PIR", "Living Room")
-    bedroom = find_sensor(topology, "PIR", "Bedroom")
-    stove = find_sensor(topology, "POWER", "Kitchen")
-    entrance = find_sensor(topology, "CONTACT", "Entrance")
-
-    add_event(events, base.replace(hour=18), kitchen, "MOTION", scenario, danger)
-    add_event(events, base.replace(hour=18, minute=1), stove, random.randint(1200, 2200), scenario, danger)
-
-    add_event(events, base.replace(hour=18, minute=5), living, "MOTION", scenario, danger)
-    add_event(events, base.replace(hour=18, minute=20), bedroom, "MOTION", scenario, danger)
-    add_event(events, base.replace(hour=18, minute=45), stove, random.randint(1200, 2200), scenario, danger)
-
-    add_event(events, base.replace(hour=3), entrance, "OPEN", scenario, danger)
-    add_event(events, base.replace(hour=3, minute=1), entrance, "CLOSED", scenario, danger)
+    return events
 
 
 def generate_alerts(events):
     alerts = []
 
     fridge_open_time = None
-    stove_on_time = None
     last_kitchen_motion = None
 
-    for event in events:
+    for event in sorted(events, key=lambda x: x["timestamp"]):
         timestamp = datetime.fromisoformat(event["timestamp"])
 
-        if event["sensor_type"] == "PIR" and event["location"] == "Kitchen":
+        if event["sensor_id"] == "pir_kitchen" and event["value"] == "MOTION":
             last_kitchen_motion = timestamp
 
-        if event["sensor_type"] == "CONTACT" and event["location"] == "Kitchen":
+        if event["sensor_id"] == "fridge_contact":
             if event["value"] == "OPEN":
                 fridge_open_time = timestamp
 
             elif event["value"] == "CLOSED":
                 fridge_open_time = None
 
-            elif event["value"] == "STILL_OPEN":
-                if fridge_open_time and timestamp - fridge_open_time > timedelta(minutes=30):
+            elif event["value"] == "STILL_OPEN" and fridge_open_time:
+                if timestamp - fridge_open_time > timedelta(minutes=30):
                     alerts.append({
                         "timestamp": event["timestamp"],
-                        "alert": "Fridge left open for more than 30 minutes",
-                        "severity": "MEDIUM"
+                        "scenario": event["scenario"],
+                        "severity": "MEDIUM",
+                        "type": "FRIDGE_LEFT_OPEN",
+                        "message": "Fridge left open for more than 30 minutes.",
+                        "recommended_action": "Check whether the resident forgot to close the fridge."
                     })
 
-        if event["sensor_type"] == "POWER" and event["location"] == "Kitchen":
+        if event["sensor_id"] == "stove_power":
             if isinstance(event["value"], int) and event["value"] > 0:
-                if stove_on_time is None:
-                    stove_on_time = timestamp
-
                 if last_kitchen_motion and timestamp - last_kitchen_motion > timedelta(minutes=15):
                     alerts.append({
                         "timestamp": event["timestamp"],
-                        "alert": "Stove left ON unattended",
-                        "severity": "HIGH"
+                        "scenario": event["scenario"],
+                        "severity": "HIGH",
+                        "type": "STOVE_UNATTENDED",
+                        "message": "Stove appears to be on while there is no recent kitchen activity.",
+                        "recommended_action": "Contact the resident or caretaker immediately."
                     })
 
-            elif event["value"] == 0:
-                stove_on_time = None
-
-        if event["value"] == "INACTIVE_END":
+        if event["value"] in ["NO_MOTION_6H", "STILL_ON_COUCH_6H"]:
             alerts.append({
                 "timestamp": event["timestamp"],
-                "alert": "Resident inactive for more than 6 hours",
-                "severity": "MEDIUM"
+                "scenario": event["scenario"],
+                "severity": "MEDIUM",
+                "type": "SEDENTARY_BEHAVIOUR",
+                "message": "Resident appears inactive or seated for more than 6 hours.",
+                "recommended_action": "Check if the resident is okay."
             })
 
         if (
-            event["sensor_type"] == "CONTACT"
-            and event["location"] == "Entrance"
+            event["sensor_id"] == "entrance_door"
             and event["value"] == "OPEN"
+            and 0 <= timestamp.hour <= 5
         ):
-            hour = timestamp.hour
-            if 0 <= hour <= 5:
-                alerts.append({
-                    "timestamp": event["timestamp"],
-                    "alert": "Unexpected entrance door opening during night",
-                    "severity": "HIGH"
-                })
+            alerts.append({
+                "timestamp": event["timestamp"],
+                "scenario": event["scenario"],
+                "severity": "HIGH",
+                "type": "NIGHT_EXIT",
+                "message": "Entrance door opened during night hours.",
+                "recommended_action": "Verify resident safety immediately."
+            })
 
     return alerts
 
 
 def save_outputs(events, alerts):
-    events.sort(key=lambda e: e["timestamp"])
+    events.sort(key=lambda x: x["timestamp"])
 
     output = {
         "sensor_events": events,
         "alerts": alerts
     }
 
-    with open(OUTPUT_JSON_FILE, "w") as file:
+    with open(OUTPUT_JSON, "w") as file:
         json.dump(output, file, indent=4)
 
-    with open(OUTPUT_CSV_FILE, "w", newline="") as file:
-        writer = csv.DictWriter(
-            file,
-            fieldnames=[
-                "timestamp",
-                "sensor_id",
-                "sensor_type",
-                "location",
-                "value",
-                "scenario",
-                "danger_level"
-            ]
-        )
+    with open(OUTPUT_CSV, "w", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=[
+            "timestamp",
+            "home_id",
+            "sensor_id",
+            "sensor_type",
+            "location",
+            "value",
+            "scenario",
+            "danger_level"
+        ])
+
         writer.writeheader()
         writer.writerows(events)
 
 
 def main():
-    topology = load_topology(INPUT_TOPOLOGY_FILE)
+    topology = load_json(TOPOLOGY_FILE)
+
+    scenario_files = [
+        "normal_day.json",
+        "subtle_decline.json",
+        "acute_hazard.json"
+    ]
 
     events = []
 
-    generate_normal_day(events, topology)
-    generate_subtle_decline(events, topology)
-    generate_acute_hazard(events, topology)
+    for day_offset, filename in enumerate(scenario_files):
+        path = os.path.join(SCENARIO_FOLDER, filename)
+        events.extend(load_scenario(path, topology, day_offset))
 
-    events.sort(key=lambda e: e["timestamp"])
+    events.sort(key=lambda x: x["timestamp"])
     alerts = generate_alerts(events)
 
     save_outputs(events, alerts)
 
     print(f"Generated {len(events)} sensor events")
     print(f"Generated {len(alerts)} alerts")
-    print(f"Saved: {OUTPUT_JSON_FILE}")
-    print(f"Saved: {OUTPUT_CSV_FILE}")
+    print(f"Saved output to {OUTPUT_JSON}")
+    print(f"Saved output to {OUTPUT_CSV}")
 
 
 if __name__ == "__main__":
