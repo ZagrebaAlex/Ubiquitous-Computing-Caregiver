@@ -1,0 +1,62 @@
+{
+  "scenario": "Day 06 - Hygiene Decline",
+  "danger_level": "MEDIUM",
+  "jitter_minutes": 6,
+  "events": [
+    {
+      "offset_minutes": 500,
+      "sensor_id": "pressure_bed_bedroom",
+      "value": "OFF_BED"
+    },
+    {
+      "offset_minutes": 501,
+      "sensor_id": "pir_bedroom",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 530,
+      "sensor_id": "pir_kitchen",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 531,
+      "sensor_id": "fridge_contact",
+      "value": "OPEN"
+    },
+    {
+      "offset_minutes": 534,
+      "sensor_id": "fridge_contact",
+      "value": "CLOSED"
+    },
+    {
+      "offset_minutes": 535,
+      "sensor_id": "medicine_cabinet",
+      "value": "VIBRATION"
+    },
+    {
+      "offset_minutes": 700,
+      "sensor_id": "pir_living_room",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 705,
+      "sensor_id": "tv_living_room",
+      "value": 80
+    },
+    {
+      "offset_minutes": 820,
+      "sensor_id": "tv_living_room",
+      "value": 0
+    },
+    {
+      "offset_minutes": 1260,
+      "sensor_id": "pir_bathroom",
+      "value": "NO_MORNING_HYGIENE"
+    },
+    {
+      "offset_minutes": 1355,
+      "sensor_id": "pressure_bed_bedroom",
+      "value": "ON_BED"
+    }
+  ]
+}

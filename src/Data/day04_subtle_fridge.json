@@ -1,0 +1,67 @@
+{
+  "scenario": "Day 04 - Fridge Left Open",
+  "danger_level": "MEDIUM",
+  "jitter_minutes": 4,
+  "events": [
+    {
+      "offset_minutes": 450,
+      "sensor_id": "pressure_bed_bedroom",
+      "value": "OFF_BED"
+    },
+    {
+      "offset_minutes": 451,
+      "sensor_id": "pir_bedroom",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 465,
+      "sensor_id": "pir_bathroom",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 480,
+      "sensor_id": "pir_kitchen",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 481,
+      "sensor_id": "fridge_contact",
+      "value": "OPEN"
+    },
+    {
+      "offset_minutes": 540,
+      "sensor_id": "fridge_contact",
+      "value": "STILL_OPEN"
+    },
+    {
+      "offset_minutes": 660,
+      "sensor_id": "fridge_contact",
+      "value": "STILL_OPEN"
+    },
+    {
+      "offset_minutes": 780,
+      "sensor_id": "fridge_contact",
+      "value": "CLOSED"
+    },
+    {
+      "offset_minutes": 800,
+      "sensor_id": "pir_living_room",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 805,
+      "sensor_id": "couch_pressure_living_room",
+      "value": "ON_COUCH"
+    },
+    {
+      "offset_minutes": 930,
+      "sensor_id": "couch_pressure_living_room",
+      "value": "OFF_COUCH"
+    },
+    {
+      "offset_minutes": 1330,
+      "sensor_id": "pressure_bed_bedroom",
+      "value": "ON_BED"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "scenario": "Day 05 - Long Sedentary Period",
+  "danger_level": "MEDIUM",
+  "jitter_minutes": 5,
+  "events": [
+    {
+      "offset_minutes": 470,
+      "sensor_id": "pressure_bed_bedroom",
+      "value": "OFF_BED"
+    },
+    {
+      "offset_minutes": 471,
+      "sensor_id": "pir_bedroom",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 485,
+      "sensor_id": "pir_bathroom",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 510,
+      "sensor_id": "pir_kitchen",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 511,
+      "sensor_id": "fridge_contact",
+      "value": "OPEN"
+    },
+    {
+      "offset_minutes": 514,
+      "sensor_id": "fridge_contact",
+      "value": "CLOSED"
+    },
+    {
+      "offset_minutes": 515,
+      "sensor_id": "medicine_cabinet",
+      "value": "VIBRATION"
+    },
+    {
+      "offset_minutes": 555,
+      "sensor_id": "pir_living_room",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 560,
+      "sensor_id": "couch_pressure_living_room",
+      "value": "ON_COUCH"
+    },
+    {
+      "offset_minutes": 920,
+      "sensor_id": "couch_pressure_living_room",
+      "value": "STILL_ON_COUCH_6H"
+    },
+    {
+      "offset_minutes": 921,
+      "sensor_id": "pir_living_room",
+      "value": "NO_MOTION_6H"
+    },
+    {
+      "offset_minutes": 940,
+      "sensor_id": "couch_pressure_living_room",
+      "value": "OFF_COUCH"
+    },
+    {
+      "offset_minutes": 945,
+      "sensor_id": "pir_living_room",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 1340,
+      "sensor_id": "pressure_bed_bedroom",
+      "value": "ON_BED"
+    }
+  ]
+}

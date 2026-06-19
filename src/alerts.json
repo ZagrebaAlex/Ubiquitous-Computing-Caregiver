@@ -1,0 +1,196 @@
+{
+    "generated_at": "2026-06-19T22:13:13.066207",
+    "total_alerts": 19,
+    "alerts": [
+        {
+            "alert_id": "ALT-0001",
+            "timestamp": "2026-01-01T07:49:00",
+            "scenario": "Day 01 - Normal Routine",
+            "severity": "HIGH",
+            "type": "STOVE_UNATTENDED",
+            "status": "ACTIVE",
+            "message": "Stove appears to be on while there is no recent kitchen activity.",
+            "recommended_action": "Contact the resident or caretaker immediately."
+        },
+        {
+            "alert_id": "ALT-0002",
+            "timestamp": "2026-01-03T09:01:00",
+            "scenario": "Day 03 - Missed Morning Medicine",
+            "severity": "HIGH",
+            "type": "STOVE_UNATTENDED",
+            "status": "ACTIVE",
+            "message": "Stove appears to be on while there is no recent kitchen activity.",
+            "recommended_action": "Contact the resident or caretaker immediately."
+        },
+        {
+            "alert_id": "ALT-0003",
+            "timestamp": "2026-01-03T09:58:00",
+            "scenario": "Day 03 - Missed Morning Medicine",
+            "severity": "MEDIUM",
+            "type": "MISSED_MEDICATION",
+            "status": "ACTIVE",
+            "message": "No medicine cabinet activity was detected near the expected medication time.",
+            "recommended_action": "Remind the resident to take medication or contact the caretaker."
+        },
+        {
+            "alert_id": "ALT-0004",
+            "timestamp": "2026-01-04T09:01:00",
+            "scenario": "Day 04 - Fridge Left Open",
+            "severity": "MEDIUM",
+            "type": "FRIDGE_LEFT_OPEN",
+            "status": "ACTIVE",
+            "message": "Fridge left open for more than 30 minutes.",
+            "recommended_action": "Check whether the resident forgot to close the fridge."
+        },
+        {
+            "alert_id": "ALT-0005",
+            "timestamp": "2026-01-04T10:58:00",
+            "scenario": "Day 04 - Fridge Left Open",
+            "severity": "MEDIUM",
+            "type": "FRIDGE_LEFT_OPEN",
+            "status": "ACTIVE",
+            "message": "Fridge left open for more than 30 minutes.",
+            "recommended_action": "Check whether the resident forgot to close the fridge."
+        },
+        {
+            "alert_id": "ALT-0006",
+            "timestamp": "2026-01-05T15:24:00",
+            "scenario": "Day 05 - Long Sedentary Period",
+            "severity": "MEDIUM",
+            "type": "SEDENTARY_BEHAVIOUR",
+            "status": "ACTIVE",
+            "message": "Resident appears inactive or seated for more than 6 hours.",
+            "recommended_action": "Check if the resident is okay."
+        },
+        {
+            "alert_id": "ALT-0007",
+            "timestamp": "2026-01-05T15:25:00",
+            "scenario": "Day 05 - Long Sedentary Period",
+            "severity": "MEDIUM",
+            "type": "SEDENTARY_BEHAVIOUR",
+            "status": "ACTIVE",
+            "message": "Resident appears inactive or seated for more than 6 hours.",
+            "recommended_action": "Check if the resident is okay."
+        },
+        {
+            "alert_id": "ALT-0008",
+            "timestamp": "2026-01-06T20:55:00",
+            "scenario": "Day 06 - Hygiene Decline",
+            "severity": "MEDIUM",
+            "type": "MISSED_HYGIENE_ROUTINE",
+            "status": "ACTIVE",
+            "message": "Expected morning hygiene activity was not detected.",
+            "recommended_action": "Check whether the resident needs assistance."
+        },
+        {
+            "alert_id": "ALT-0009",
+            "timestamp": "2026-01-07T18:01:00",
+            "scenario": "Day 07 - Unattended Stove",
+            "severity": "HIGH",
+            "type": "STOVE_UNATTENDED",
+            "status": "ACTIVE",
+            "message": "Stove appears to be on while there is no recent kitchen activity.",
+            "recommended_action": "Contact the resident or caretaker immediately."
+        },
+        {
+            "alert_id": "ALT-0010",
+            "timestamp": "2026-01-07T18:38:00",
+            "scenario": "Day 07 - Unattended Stove",
+            "severity": "HIGH",
+            "type": "STOVE_UNATTENDED",
+            "status": "ACTIVE",
+            "message": "Stove appears to be on while there is no recent kitchen activity.",
+            "recommended_action": "Contact the resident or caretaker immediately."
+        },
+        {
+            "alert_id": "ALT-0011",
+            "timestamp": "2026-01-08T03:03:00",
+            "scenario": "Day 08 - Night Exit",
+            "severity": "HIGH",
+            "type": "NIGHT_EXIT",
+            "status": "ACTIVE",
+            "message": "Entrance door opened during night hours.",
+            "recommended_action": "Verify resident safety immediately."
+        },
+        {
+            "alert_id": "ALT-0012",
+            "timestamp": "2026-01-09T08:17:00",
+            "scenario": "Day 09 - Bathroom Water Left Running",
+            "severity": "HIGH",
+            "type": "WATER_LEFT_RUNNING",
+            "status": "ACTIVE",
+            "message": "Bathroom water appears to have been left running.",
+            "recommended_action": "Check the bathroom immediately."
+        },
+        {
+            "alert_id": "ALT-0013",
+            "timestamp": "2026-01-09T08:48:00",
+            "scenario": "Day 09 - Bathroom Water Left Running",
+            "severity": "HIGH",
+            "type": "WATER_LEFT_RUNNING",
+            "status": "ACTIVE",
+            "message": "Bathroom water appears to have been left running.",
+            "recommended_action": "Check the bathroom immediately."
+        },
+        {
+            "alert_id": "ALT-0014",
+            "timestamp": "2026-01-10T10:24:00",
+            "scenario": "Day 10 - Combined Decline",
+            "severity": "MEDIUM",
+            "type": "FRIDGE_LEFT_OPEN",
+            "status": "ACTIVE",
+            "message": "Fridge left open for more than 30 minutes.",
+            "recommended_action": "Check whether the resident forgot to close the fridge."
+        },
+        {
+            "alert_id": "ALT-0015",
+            "timestamp": "2026-01-10T10:50:00",
+            "scenario": "Day 10 - Combined Decline",
+            "severity": "MEDIUM",
+            "type": "MISSED_MEDICATION",
+            "status": "ACTIVE",
+            "message": "No medicine cabinet activity was detected near the expected medication time.",
+            "recommended_action": "Remind the resident to take medication or contact the caretaker."
+        },
+        {
+            "alert_id": "ALT-0016",
+            "timestamp": "2026-01-10T17:02:00",
+            "scenario": "Day 10 - Combined Decline",
+            "severity": "MEDIUM",
+            "type": "SEDENTARY_BEHAVIOUR",
+            "status": "ACTIVE",
+            "message": "Resident appears inactive or seated for more than 6 hours.",
+            "recommended_action": "Check if the resident is okay."
+        },
+        {
+            "alert_id": "ALT-0017",
+            "timestamp": "2026-01-10T17:10:00",
+            "scenario": "Day 10 - Combined Decline",
+            "severity": "MEDIUM",
+            "type": "SEDENTARY_BEHAVIOUR",
+            "status": "ACTIVE",
+            "message": "Resident appears inactive or seated for more than 6 hours.",
+            "recommended_action": "Check if the resident is okay."
+        },
+        {
+            "alert_id": "ALT-0018",
+            "timestamp": "2026-01-10T17:58:00",
+            "scenario": "Day 10 - Combined Decline",
+            "severity": "HIGH",
+            "type": "STOVE_UNATTENDED",
+            "status": "ACTIVE",
+            "message": "Stove appears to be on while there is no recent kitchen activity.",
+            "recommended_action": "Contact the resident or caretaker immediately."
+        },
+        {
+            "alert_id": "ALT-0019",
+            "timestamp": "2026-01-10T18:42:00",
+            "scenario": "Day 10 - Combined Decline",
+            "severity": "HIGH",
+            "type": "STOVE_UNATTENDED",
+            "status": "ACTIVE",
+            "message": "Stove appears to be on while there is no recent kitchen activity.",
+            "recommended_action": "Contact the resident or caretaker immediately."
+        }
+    ]
+}

@@ -1,0 +1,87 @@
+{
+  "scenario": "Day 03 - Missed Morning Medicine",
+  "danger_level": "MEDIUM",
+  "jitter_minutes": 8,
+  "events": [
+    {
+      "offset_minutes": 480,
+      "sensor_id": "pressure_bed_bedroom",
+      "value": "OFF_BED"
+    },
+    {
+      "offset_minutes": 481,
+      "sensor_id": "pir_bedroom",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 492,
+      "sensor_id": "pir_bathroom",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 496,
+      "sensor_id": "waterflow_sink",
+      "value": "ON"
+    },
+    {
+      "offset_minutes": 497,
+      "sensor_id": "waterflow_sink",
+      "value": "OFF"
+    },
+    {
+      "offset_minutes": 525,
+      "sensor_id": "pir_kitchen",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 526,
+      "sensor_id": "fridge_contact",
+      "value": "OPEN"
+    },
+    {
+      "offset_minutes": 529,
+      "sensor_id": "fridge_contact",
+      "value": "CLOSED"
+    },
+    {
+      "offset_minutes": 540,
+      "sensor_id": "stove_power",
+      "value": 1100
+    },
+    {
+      "offset_minutes": 560,
+      "sensor_id": "stove_power",
+      "value": 0
+    },
+    {
+      "offset_minutes": 600,
+      "sensor_id": "medicine_cabinet",
+      "value": "NO_ACTIVITY"
+    },
+    {
+      "offset_minutes": 615,
+      "sensor_id": "pir_living_room",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 620,
+      "sensor_id": "couch_pressure_living_room",
+      "value": "ON_COUCH"
+    },
+    {
+      "offset_minutes": 870,
+      "sensor_id": "couch_pressure_living_room",
+      "value": "OFF_COUCH"
+    },
+    {
+      "offset_minutes": 1150,
+      "sensor_id": "medicine_cabinet",
+      "value": "VIBRATION"
+    },
+    {
+      "offset_minutes": 1365,
+      "sensor_id": "pressure_bed_bedroom",
+      "value": "ON_BED"
+    }
+  ]
+}

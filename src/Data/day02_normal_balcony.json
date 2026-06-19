@@ -1,0 +1,107 @@
+{
+  "scenario": "Day 02 - Normal With Balcony",
+  "danger_level": "LOW",
+  "jitter_minutes": 7,
+  "events": [
+    {
+      "offset_minutes": 425,
+      "sensor_id": "pressure_bed_bedroom",
+      "value": "OFF_BED"
+    },
+    {
+      "offset_minutes": 426,
+      "sensor_id": "pir_bedroom",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 438,
+      "sensor_id": "pir_bathroom",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 441,
+      "sensor_id": "waterflow_sink",
+      "value": "ON"
+    },
+    {
+      "offset_minutes": 442,
+      "sensor_id": "waterflow_sink",
+      "value": "OFF"
+    },
+    {
+      "offset_minutes": 470,
+      "sensor_id": "pir_kitchen",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 471,
+      "sensor_id": "fridge_contact",
+      "value": "OPEN"
+    },
+    {
+      "offset_minutes": 474,
+      "sensor_id": "fridge_contact",
+      "value": "CLOSED"
+    },
+    {
+      "offset_minutes": 475,
+      "sensor_id": "medicine_cabinet",
+      "value": "VIBRATION"
+    },
+    {
+      "offset_minutes": 530,
+      "sensor_id": "door_balcony_livingroom",
+      "value": "OPEN"
+    },
+    {
+      "offset_minutes": 531,
+      "sensor_id": "pir_balcony",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 550,
+      "sensor_id": "door_balcony_livingroom",
+      "value": "CLOSED"
+    },
+    {
+      "offset_minutes": 735,
+      "sensor_id": "pir_kitchen",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 736,
+      "sensor_id": "fridge_contact",
+      "value": "OPEN"
+    },
+    {
+      "offset_minutes": 738,
+      "sensor_id": "fridge_contact",
+      "value": "CLOSED"
+    },
+    {
+      "offset_minutes": 1095,
+      "sensor_id": "pir_living_room",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 1100,
+      "sensor_id": "tv_living_room",
+      "value": 110
+    },
+    {
+      "offset_minutes": 1230,
+      "sensor_id": "tv_living_room",
+      "value": 0
+    },
+    {
+      "offset_minutes": 1330,
+      "sensor_id": "pir_bathroom",
+      "value": "MOTION"
+    },
+    {
+      "offset_minutes": 1360,
+      "sensor_id": "pressure_bed_bedroom",
+      "value": "ON_BED"
+    }
+  ]
+}
