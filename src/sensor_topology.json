@@ -1,0 +1,95 @@
+{
+  "home_id": "apartment_01",
+  "sensors": [
+    {
+      "sensor_id": "pir_bedroom",
+      "sensor_type": "PIR",
+      "location": "Bedroom"
+    },
+    {
+      "sensor_id": "pressure_bed_bedroom",
+      "sensor_type": "PRESSURE",
+      "location": "Bedroom"
+    },
+    {
+      "sensor_id": "pir_balcony",
+      "sensor_type": "PIR",
+      "location": "Balcony"
+    },
+    {
+      "sensor_id": "door_balcony_bedroom",
+      "sensor_type": "CONTACT",
+      "location": "Balcony"
+    },
+    {
+      "sensor_id": "door_balcony_livingroom",
+      "sensor_type": "CONTACT",
+      "location": "Balcony"
+    },
+    {
+      "sensor_id": "pir_living_room",
+      "sensor_type": "PIR",
+      "location": "Living Room"
+    },
+    {
+      "sensor_id": "couch_pressure_living_room",
+      "sensor_type": "PRESSURE",
+      "location": "Living Room"
+    },
+    {
+      "sensor_id": "tv_living_room",
+      "sensor_type": "POWER",
+      "location": "Living Room"
+    },
+    {
+      "sensor_id": "pir_kitchen",
+      "sensor_type": "PIR",
+      "location": "Kitchen"
+    },
+    {
+      "sensor_id": "fridge_contact",
+      "sensor_type": "CONTACT",
+      "location": "Kitchen"
+    },
+    {
+      "sensor_id": "stove_power",
+      "sensor_type": "POWER",
+      "location": "Kitchen"
+    },
+    {
+      "sensor_id": "medicine_cabinet",
+      "sensor_type": "VIBRATION",
+      "location": "Kitchen"
+    },
+    {
+      "sensor_id": "pir_bathroom",
+      "sensor_type": "PIR",
+      "location": "Bathroom"
+    },
+    {
+      "sensor_id": "waterflow_sink",
+      "sensor_type": "WATERFLOW",
+      "location": "Bathroom"
+    },
+    {
+      "sensor_id": "waterflow_toilet",
+      "sensor_type": "WATERFLOW",
+      "location": "Bathroom"
+    },
+    {
+      "sensor_id": "waterflow_bathtub",
+      "sensor_type": "WATERFLOW",
+      "location": "Bathroom"
+    },
+    {
+      "sensor_id": "entrance_door",
+      "sensor_type": "CONTACT",
+      "location": "Entrance"
+    },
+    {
+      "sensor_id": "floor_mat",
+      "sensor_type": "PRESSURE",
+      "location": "Entrance"
+    }
+  ]
+}
