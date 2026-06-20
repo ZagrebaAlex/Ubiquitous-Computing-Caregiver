@@ -346,6 +346,11 @@ def generate_normal_day(day: datetime) -> list[dict]:
     return events
 
 
+def filter_events_up_to(events: list[dict], cutoff: datetime) -> list[dict]:
+    cutoff_ts = to_timestamp_ms(cutoff)
+    return [event for event in events if event["ts"] <= cutoff_ts]
+
+
 def inject_decline_like_sequence(day: datetime) -> list[dict]:
     events = []
 
@@ -578,7 +583,11 @@ def inject_hazard_like_sequence(day: datetime) -> list[dict]:
 
 def build_simulation() -> list[dict]:
     all_events = []
-    first_day = datetime.now() - timedelta(days=DAYS_TO_SIMULATE)
+    now = datetime.now()
+    first_day = datetime.combine(
+        (now - timedelta(days=DAYS_TO_SIMULATE - 1)).date(),
+        time.min
+    )
 
     for day_index in range(DAYS_TO_SIMULATE):
         day = first_day + timedelta(days=day_index)
@@ -589,6 +598,9 @@ def build_simulation() -> list[dict]:
 
         if random.random() < HAZARD_SCENARIO_PROBABILITY:
             day_events.extend(inject_hazard_like_sequence(day))
+
+        if day.date() == now.date():
+            day_events = filter_events_up_to(day_events, now)
 
         all_events.extend(day_events)
 
