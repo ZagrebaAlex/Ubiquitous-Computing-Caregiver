@@ -1,0 +1,110 @@
+[
+  {
+    "timestamp": "2026-06-19T19:22:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "room": "Kitchen",
+    "metric": "motion",
+    "state": "detected",
+    "value": 1
+  },
+  {
+    "timestamp": "2026-06-19T19:24:00",
+    "sensor_id": "fridge_contact",
+    "sensor_type": "CONTACT",
+    "room": "Kitchen",
+    "metric": "contact",
+    "state": "open",
+    "value": 1
+  },
+  {
+    "timestamp": "2026-06-19T19:27:00",
+    "sensor_id": "fridge_contact",
+    "sensor_type": "CONTACT",
+    "room": "Kitchen",
+    "metric": "contact",
+    "state": "closed",
+    "value": 0
+  },
+  {
+    "timestamp": "2026-06-19T19:30:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "room": "Kitchen",
+    "metric": "power",
+    "state": "on",
+    "value": 1
+  },
+  {
+    "timestamp": "2026-06-19T19:52:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "room": "Kitchen",
+    "metric": "power",
+    "state": "off",
+    "value": 0
+  },
+  {
+    "timestamp": "2026-06-19T19:53:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "room": "Kitchen",
+    "metric": "motion",
+    "state": "detected",
+    "value": 1
+  },
+  {
+    "timestamp": "2026-06-19T19:58:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "room": "Kitchen",
+    "metric": "motion",
+    "state": "detected",
+    "value": 1
+  },
+  {
+    "timestamp": "2026-06-19T20:57:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "room": "Kitchen",
+    "metric": "motion",
+    "state": "detected",
+    "value": 1
+  },
+  {
+    "timestamp": "2026-06-19T23:00:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "room": "Kitchen",
+    "metric": "power",
+    "state": "on",
+    "value": 1
+  },
+  {
+    "timestamp": "2026-06-19T23:15:00",
+    "sensor_id": "pressure_bed_bedroom",
+    "sensor_type": "PRESSURE",
+    "room": "Bedroom",
+    "metric": "pressure",
+    "state": "occupied",
+    "value": 1
+  },
+  {
+    "timestamp": "2026-06-19T23:30:00",
+    "sensor_id": "pressure_bed_bedroom",
+    "sensor_type": "PRESSURE",
+    "room": "Bedroom",
+    "metric": "pressure",
+    "state": "occupied",
+    "value": 0
+  },
+  {
+    "timestamp": "2026-06-19T23:55:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "room": "Kitchen",
+    "metric": "power",
+    "state": "off",
+    "value": 0
+  }
+]

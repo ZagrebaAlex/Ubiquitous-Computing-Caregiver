@@ -90,7 +90,7 @@ Hazardous Events
 Create a critical-level alert if there is clear evidence of one of the following within the available Safety Auditor window:
 
 1. stove_on_left_appartment:
-   Stove is left on while the resident goes to sleep or leaves the apartment.
+   Stove is left on while the resident goes to bed to sleep or leaves the apartment.
 
 2. toaster_on_left_appartment:
    Toaster is left on while the resident goes to sleep or leaves the apartment. Only evaluate this rule if toaster_power exists in the provided telemetry/topology.
