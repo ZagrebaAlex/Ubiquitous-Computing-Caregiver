@@ -5,7 +5,7 @@ hygiene, eating, and safety.
 
 ## Rules that should happen every day:
 
-1. The person needs to sleep from 6-8 hours daily. This can be seen from the bed pressure mat. If there user has pressure for these hours in total.
+1. The person needs to sleep from 6-8 hours daily. This can be seen from the bed pressure mat. If there user has pressure for these hours in **total**.
 2. The person needs to take their medicine once per day. preferably around 8 in the morning. Max Delay should be at most 1 hour.
 3. The person needs to have 3 meals per day. This can be calculated from the fridge contact sensor or the stove/toaster working.
 4. The person needs to follow a hygiene. They need to wash hands when coming home from outside, and after cooking. Shower once per day. Wash hands after toilet use.
