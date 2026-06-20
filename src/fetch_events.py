@@ -28,6 +28,12 @@ TELEMETRY_KEYS = [
 def to_ms(dt: datetime) -> int:
     return int(dt.timestamp() * 1000)
 
+def fetch_events_between(start_dt: datetime, end_dt: datetime) -> list[dict]:
+    token = login()
+    device_id = get_device_id(token, THINGSBOARD_DEVICE_NAME)
+    raw = fetch_timeseries(token, device_id, to_ms(start_dt), to_ms(end_dt))
+    return reconstruct_events(raw)
+
 
 def login() -> str:
     response = requests.post(
@@ -40,6 +46,9 @@ def login() -> str:
     )
     response.raise_for_status()
     return response.json()["token"]
+
+def parse_datetime(value: str) -> datetime:
+    return datetime.fromisoformat(value.replace("Z", ""))
 
 
 def auth_headers(token: str) -> dict:

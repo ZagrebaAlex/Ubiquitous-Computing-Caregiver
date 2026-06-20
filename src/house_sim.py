@@ -13,7 +13,7 @@ load_dotenv()
 THINGSBOARD_HOST = os.getenv("THINGSBOARD_HOST", "http://localhost:9090")
 THINGSBOARD_ACCESS_TOKEN = os.getenv(
     "THINGSBOARD_ACCESS_TOKEN",
-    "GY6tsUQ8bM6Zx1AlLgoQ"
+    "D7cwyJpQH1fEWJwWDaTl"
 )
 
 TELEMETRY_URL = f"{THINGSBOARD_HOST}/api/v1/{THINGSBOARD_ACCESS_TOKEN}/telemetry"

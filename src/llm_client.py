@@ -10,8 +10,10 @@ BASE_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = BASE_DIR.parent
 
 PROMPT_PATHS = [
+    PROJECT_DIR / "LLM_Safety_Prompt.md",
     PROJECT_DIR / "LLM_Prompt.md",
     PROJECT_DIR / "LLM_Promt.md",
+    BASE_DIR / "LLM_Safety_Prompt.md",
     BASE_DIR / "LLM_Prompt.md",
     BASE_DIR / "LLM_Promt.md",
 ]
@@ -22,7 +24,7 @@ def load_care_plan_prompt() -> str:
         if path.exists():
             return path.read_text(encoding="utf-8")
 
-    raise FileNotFoundError("Could not find LLM_Prompt.md or LLM_Promt.md")
+    raise FileNotFoundError("Could not find safety LLM prompt file.")
 
 
 def call_ollama_json(system_prompt: str, user_prompt: str) -> dict:
@@ -39,19 +41,35 @@ def call_ollama_json(system_prompt: str, user_prompt: str) -> dict:
         }
     }
 
-    response = requests.post(OLLAMA_URL, json=payload, timeout=180)
-    response.raise_for_status()
-
-    content = response.json()["message"]["content"]
-
     try:
-        return json.loads(content)
-    except json.JSONDecodeError:
+        response = requests.post(OLLAMA_URL, json=payload, timeout=120)
+
+        if response.status_code >= 300:
+            return {
+                "mode": "llm_error",
+                "summary": f"Ollama request failed with status {response.status_code}.",
+                "alerts": [],
+                "raw_output": response.text
+            }
+
+        content = response.json()["message"]["content"]
+
+        try:
+            return json.loads(content)
+        except json.JSONDecodeError:
+            return {
+                "mode": "llm_error",
+                "summary": "The model did not return valid JSON.",
+                "alerts": [],
+                "raw_output": content
+            }
+
+    except requests.RequestException as exc:
         return {
             "mode": "llm_error",
-            "summary": "The model did not return valid JSON.",
+            "summary": f"Ollama request failed: {exc}",
             "alerts": [],
-            "raw_output": content
+            "raw_output": ""
         }
 
 
