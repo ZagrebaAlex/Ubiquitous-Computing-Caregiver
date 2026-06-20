@@ -3,13 +3,17 @@ import json
 import random
 import requests
 from pathlib import Path
+from dotenv import load_dotenv
+
 from datetime import datetime, timedelta, time
+
+load_dotenv()
 
 
 THINGSBOARD_HOST = os.getenv("THINGSBOARD_HOST", "http://localhost:9090")
 THINGSBOARD_ACCESS_TOKEN = os.getenv(
     "THINGSBOARD_ACCESS_TOKEN",
-    "V6Vujotj9Cw95ymx8AzO"
+    "GY6tsUQ8bM6Zx1AlLgoQ"
 )
 
 TELEMETRY_URL = f"{THINGSBOARD_HOST}/api/v1/{THINGSBOARD_ACCESS_TOKEN}/telemetry"

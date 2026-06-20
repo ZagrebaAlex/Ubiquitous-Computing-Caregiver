@@ -15,7 +15,8 @@ BASE_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = BASE_DIR.parent
 
 SENSOR_DATA_PATH = BASE_DIR / "sensor_data.json"
-PROMPT_PATH = PROJECT_DIR / "LLM_Prompt.md"
+SAFETY_PROMPT_PATH = PROJECT_DIR / "LLM_Safety_Prompt.md"
+NARRATOR_PROMPT_PATH = PROJECT_DIR / "LLM_Narrator_Prompt.md"
 
 ALERT_OUTPUT_PATH = BASE_DIR / "llm_hourly_alert.json"
 NARRATOR_OUTPUT_PATH = BASE_DIR / "llm_narrator_response.json"
@@ -49,7 +50,8 @@ def call_ollama(system_prompt: str, user_prompt: str):
         "stream": False,
         "format": "json",
         "options": {
-            "temperature": 0.1
+            "temperature": 0,
+            "top_p": 0.1
         }
     }
 
@@ -70,13 +72,10 @@ def call_ollama(system_prompt: str, user_prompt: str):
 
 
 def run_safety_auditor(sensor_data):
-    system_prompt = load_text_file(PROMPT_PATH)
+    system_prompt = load_text_file(SAFETY_PROMPT_PATH)
 
     user_prompt = f"""
-Mode: Safety Auditor Mode
-
-You are receiving the last 1 hour of raw sensor telemetry.
-Only create alerts for issues that can be proven from this data window.
+You are receiving recent sensor telemetry.
 
 Return the required Safety Auditor JSON structure.
 
@@ -86,24 +85,21 @@ Sensor data:
 
     return call_ollama(system_prompt, user_prompt)
 
-
 def run_narrator(sensor_data, question: str):
-    system_prompt = load_text_file(PROMPT_PATH)
+    system_prompt = load_text_file(NARRATOR_PROMPT_PATH)
 
     user_prompt = f"""
-Mode: Narrator Mode
-
 Caregiver question:
+
 {question}
 
 Answer using only the available sensor data.
 
-Recent sensor data:
+Sensor data:
 {json.dumps(sensor_data, indent=2, ensure_ascii=False)}
 """
 
     return call_ollama(system_prompt, user_prompt)
-
 
 def main():
     parser = argparse.ArgumentParser(
@@ -130,11 +126,11 @@ def main():
     args = parser.parse_args()
 
     if args.debug:
-        print("Script:", Path(__file__).resolve())
-        print("Sensor data:", SENSOR_DATA_PATH.resolve())
-        print("Sensor data exists:", SENSOR_DATA_PATH.exists())
-        print("Prompt:", PROMPT_PATH.resolve())
-        print("Prompt exists:", PROMPT_PATH.exists())
+        print("Safety prompt:", SAFETY_PROMPT_PATH.resolve())
+        print("Safety prompt exists:", SAFETY_PROMPT_PATH.exists())
+
+        print("Narrator prompt:", NARRATOR_PROMPT_PATH.resolve())
+        print("Narrator prompt exists:", NARRATOR_PROMPT_PATH.exists())
 
     sensor_data = load_json_file(SENSOR_DATA_PATH)
 
