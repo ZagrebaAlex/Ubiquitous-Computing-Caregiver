@@ -3,7 +3,15 @@ import json
 from pathlib import Path
 
 from fetch_events import fetch_events, fetch_events_between, parse_datetime
-from rule_alerts import run_rules
+from rule_alerts import (
+    check_fridge_left_open,
+    check_water_running_no_bathroom,
+    check_long_sedentary_period,
+    check_stove_on_left_or_sleep,
+    check_night_exit,
+    check_door_open_at_night,
+    check_door_open_while_sleeping,
+)
 from llm_client import load_care_plan_prompt, call_ollama_json, save_json
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -14,6 +22,18 @@ LLM_SAFETY_OUTPUT_PATH = BASE_DIR / "llm_safety_output.json"
 DASHBOARD_POST_PATH = BASE_DIR / "dashboard_post.json"
 DASHBOARD_24H_PATH = BASE_DIR / "dashboard_posts_24h.json"
 CRITICAL_NOTIFICATION_PATH = BASE_DIR / "critical_notification.json"
+
+
+def run_safety_rules(events):
+    alerts = []
+    alerts.extend(check_fridge_left_open(events))
+    alerts.extend(check_water_running_no_bathroom(events))
+    alerts.extend(check_long_sedentary_period(events))
+    alerts.extend(check_stove_on_left_or_sleep(events))
+    alerts.extend(check_night_exit(events))
+    alerts.extend(check_door_open_at_night(events))
+    alerts.extend(check_door_open_while_sleeping(events))
+    return alerts
 
 
 def highest_severity(alerts):
@@ -41,7 +61,7 @@ def build_direct_dashboard_output(alerts):
         "mode": "safety_auditor",
         "should_post_to_dashboard": True,
         "highest_severity": highest_severity(alerts),
-        "summary": f"{len(alerts)} rule-based alert(s) detected.",
+        "summary": f"{len(alerts)} rule-based safety alert(s) detected.",
         "alerts": alerts
     }
 
@@ -65,9 +85,9 @@ Mode: Safety Auditor Mode
 
 You receive:
 1. Last-hour sensor data.
-2. Rule-engine alerts.
+2. Rule-engine safety alerts.
 
-The rule engine is the source of truth.
+The Python rule engine is the source of truth.
 Do not create new alerts.
 Do not remove alerts.
 Do not change alert_name, severity, timestamp, or evidence.
@@ -98,7 +118,7 @@ Return only valid JSON in this structure:
 Sensor data:
 {json.dumps(sensor_data, indent=2, ensure_ascii=False)}
 
-Rule-engine alerts:
+Rule-engine safety alerts:
 {json.dumps(rule_alerts, indent=2, ensure_ascii=False)}
 """
 
@@ -140,7 +160,7 @@ def main():
 
     save_json(sensor_data, HOURLY_SENSOR_DATA_PATH)
 
-    alerts = run_rules(sensor_data)
+    alerts = run_safety_rules(sensor_data)
 
     rule_alerts = {
         "mode": "safety_rule_engine",

@@ -29,7 +29,16 @@ def morning_routine(base):
         make_sensor_event(base + timedelta(minutes=14), "waterflow_toilet", "waterflow", "inactive", 0),
         make_sensor_event(base + timedelta(minutes=16), "waterflow_sink", "waterflow", "active", 1),
         make_sensor_event(base + timedelta(minutes=17), "waterflow_sink", "waterflow", "inactive", 0),
+    ]
+
+def breakfast_hour(base):
+    return [
+        make_sensor_event(base + timedelta(minutes=5), "pir_kitchen", "motion", "detected", 1),
+        make_sensor_event(base + timedelta(minutes=8), "fridge_contact", "contact", "open", 1),
+        make_sensor_event(base + timedelta(minutes=11), "fridge_contact", "contact", "closed", 0),
+        make_sensor_event(base + timedelta(minutes=15), "stove_power", "power", "on", 1),
         make_sensor_event(base + timedelta(minutes=25), "medicine_cabinet", "vibration", "detected", 1),
+        make_sensor_event(base + timedelta(minutes=35), "stove_power", "power", "off", 0),
     ]
 
 
@@ -109,7 +118,9 @@ def build_normal_day_hour(base_day, hour):
 
     if hour == 7:
         return morning_routine(base)
-    if hour in [8, 13, 18]:
+    if hour == 8:
+        return breakfast_hour(base)
+    if hour in [13, 18]:
         return meal_hour(base)
     if hour == 19:
         return balcony_hour(base)

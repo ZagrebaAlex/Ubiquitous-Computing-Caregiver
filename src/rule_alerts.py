@@ -301,7 +301,7 @@ def check_water_running_no_bathroom(events: list[dict]) -> list[dict]:
             event_time = parse_time(e)
 
             nearby_motion = any(
-                abs((event_time - motion_time).total_seconds()) <= 300
+                abs((event_time - motion_time).total_seconds()) <= 600
                 for motion_time in bathroom_motion_times
             )
 
