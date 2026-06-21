@@ -9,25 +9,13 @@ MODEL_NAME = "phi3:mini"
 BASE_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = BASE_DIR.parent
 
-PROMPT_PATHS = [
-    PROJECT_DIR / "LLM_Safety_Prompt.md",
-    PROJECT_DIR / "LLM_Prompt.md",
-    PROJECT_DIR / "LLM_Promt.md",
-    BASE_DIR / "LLM_Safety_Prompt.md",
-    BASE_DIR / "LLM_Prompt.md",
-    BASE_DIR / "LLM_Promt.md",
-]
 
+def load_prompt(path: Path) -> str:
+    if not path.exists():
+        raise FileNotFoundError(f"Prompt file not found: {path}")
+    return path.read_text(encoding="utf-8")
 
-def load_care_plan_prompt() -> str:
-    for path in PROMPT_PATHS:
-        if path.exists():
-            return path.read_text(encoding="utf-8")
-
-    raise FileNotFoundError("Could not find safety LLM prompt file.")
-
-
-def call_ollama_json(system_prompt: str, user_prompt: str) -> dict:
+def call_ollama_json(system_prompt: str, user_prompt: str, timeout_seconds: int = 120) -> dict:
     payload = {
         "model": MODEL_NAME,
         "messages": [
@@ -37,12 +25,14 @@ def call_ollama_json(system_prompt: str, user_prompt: str) -> dict:
         "stream": False,
         "format": "json",
         "options": {
-            "temperature": 0.1
+            "temperature": 0.1,
+            "num_predict": 220
+
         }
     }
 
     try:
-        response = requests.post(OLLAMA_URL, json=payload, timeout=120)
+        response = requests.post(OLLAMA_URL, json=payload, timeout=timeout_seconds)
 
         if response.status_code >= 300:
             return {
@@ -71,6 +61,31 @@ def call_ollama_json(system_prompt: str, user_prompt: str) -> dict:
             "alerts": [],
             "raw_output": ""
         }
+
+def call_ollama_text(system_prompt: str, user_prompt: str, timeout_seconds: int = 300) -> str:
+    payload = {
+        "model": MODEL_NAME,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        "stream": False,
+        "options": {
+            "temperature": 0.2,
+            "num_predict": 250
+        }
+    }
+
+    try:
+        response = requests.post(OLLAMA_URL, json=payload, timeout=timeout_seconds)
+
+        if response.status_code >= 300:
+            return f"Ollama request failed with status {response.status_code}: {response.text}"
+
+        return response.json()["message"]["content"].strip()
+
+    except requests.RequestException as exc:
+        return f"Ollama request failed: {exc}"
 
 
 def save_json(data, path: Path) -> None:

@@ -1,6 +1,7 @@
 import argparse
 import json
 from pathlib import Path
+from llm_client import load_prompt
 
 from fetch_events import fetch_events, fetch_events_between, parse_datetime
 from rule_alerts import (
@@ -12,9 +13,11 @@ from rule_alerts import (
     check_door_open_at_night,
     check_door_open_while_sleeping,
 )
-from llm_client import load_care_plan_prompt, call_ollama_json, save_json
+from llm_client import load_prompt, call_ollama_json, save_json
 
 BASE_DIR = Path(__file__).resolve().parent
+PROJECT_DIR = BASE_DIR.parent
+SAFETY_PROMPT_PATH = PROJECT_DIR / "LLM_Safety_Prompt.md"
 
 HOURLY_SENSOR_DATA_PATH = BASE_DIR / "sensor_data_hourly.json"
 SAFETY_RULE_ALERTS_PATH = BASE_DIR / "safety_rule_alerts.json"
@@ -178,7 +181,7 @@ def main():
         llm_output = build_direct_dashboard_output(alerts)
 
     else:
-        system_prompt = load_care_plan_prompt()
+        system_prompt = load_prompt(SAFETY_PROMPT_PATH)
         user_prompt = build_llm_prompt(sensor_data, rule_alerts)
         llm_output = call_ollama_json(system_prompt, user_prompt)
 

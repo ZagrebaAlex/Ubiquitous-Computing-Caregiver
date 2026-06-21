@@ -1,0 +1,6 @@
+{
+  "mode": "routine_auditor",
+  "events_checked": 66,
+  "summary": "No routine-level concerns detected.",
+  "alerts": []
+}

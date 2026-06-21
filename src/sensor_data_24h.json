@@ -1,0 +1,662 @@
+[
+  {
+    "ts": 1782076200000,
+    "timestamp": "2026-06-22 00:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782077700000,
+    "timestamp": "2026-06-22 00:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782079800000,
+    "timestamp": "2026-06-22 01:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782081300000,
+    "timestamp": "2026-06-22 01:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782083400000,
+    "timestamp": "2026-06-22 02:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782084900000,
+    "timestamp": "2026-06-22 02:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782086400000,
+    "timestamp": "2026-06-22 03:00:00",
+    "sensor_id": "entrance_door",
+    "sensor_type": "CONTACT",
+    "location": "Entrance",
+    "event_type": "contact",
+    "state": "open",
+    "value": "1"
+  },
+  {
+    "ts": 1782086460000,
+    "timestamp": "2026-06-22 03:01:00",
+    "sensor_id": "floor_mat",
+    "sensor_type": "PRESSURE",
+    "location": "Entrance",
+    "event_type": "pressure",
+    "state": "pressed",
+    "value": "1"
+  },
+  {
+    "ts": 1782086520000,
+    "timestamp": "2026-06-22 03:02:00",
+    "sensor_id": "entrance_door",
+    "sensor_type": "CONTACT",
+    "location": "Entrance",
+    "event_type": "contact",
+    "state": "closed",
+    "value": "0"
+  },
+  {
+    "ts": 1782090600000,
+    "timestamp": "2026-06-22 04:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782092100000,
+    "timestamp": "2026-06-22 04:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782094200000,
+    "timestamp": "2026-06-22 05:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782095700000,
+    "timestamp": "2026-06-22 05:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782097800000,
+    "timestamp": "2026-06-22 06:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782099300000,
+    "timestamp": "2026-06-22 06:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782101100000,
+    "timestamp": "2026-06-22 07:05:00",
+    "sensor_id": "pressure_bed_bedroom",
+    "sensor_type": "PRESSURE",
+    "location": "Bedroom",
+    "event_type": "pressure",
+    "state": "empty",
+    "value": "0"
+  },
+  {
+    "ts": 1782101400000,
+    "timestamp": "2026-06-22 07:10:00",
+    "sensor_id": "pir_bathroom",
+    "sensor_type": "PIR",
+    "location": "Bathroom",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782101580000,
+    "timestamp": "2026-06-22 07:13:00",
+    "sensor_id": "waterflow_toilet",
+    "sensor_type": "WATERFLOW",
+    "location": "Bathroom",
+    "event_type": "waterflow",
+    "state": "active",
+    "value": "1"
+  },
+  {
+    "ts": 1782101640000,
+    "timestamp": "2026-06-22 07:14:00",
+    "sensor_id": "waterflow_toilet",
+    "sensor_type": "WATERFLOW",
+    "location": "Bathroom",
+    "event_type": "waterflow",
+    "state": "inactive",
+    "value": "0"
+  },
+  {
+    "ts": 1782101760000,
+    "timestamp": "2026-06-22 07:16:00",
+    "sensor_id": "waterflow_sink",
+    "sensor_type": "WATERFLOW",
+    "location": "Bathroom",
+    "event_type": "waterflow",
+    "state": "active",
+    "value": "1"
+  },
+  {
+    "ts": 1782101820000,
+    "timestamp": "2026-06-22 07:17:00",
+    "sensor_id": "waterflow_sink",
+    "sensor_type": "WATERFLOW",
+    "location": "Bathroom",
+    "event_type": "waterflow",
+    "state": "inactive",
+    "value": "0"
+  },
+  {
+    "ts": 1782104700000,
+    "timestamp": "2026-06-22 08:05:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782104880000,
+    "timestamp": "2026-06-22 08:08:00",
+    "sensor_id": "fridge_contact",
+    "sensor_type": "CONTACT",
+    "location": "Kitchen",
+    "event_type": "contact",
+    "state": "open",
+    "value": "1"
+  },
+  {
+    "ts": 1782105060000,
+    "timestamp": "2026-06-22 08:11:00",
+    "sensor_id": "fridge_contact",
+    "sensor_type": "CONTACT",
+    "location": "Kitchen",
+    "event_type": "contact",
+    "state": "closed",
+    "value": "0"
+  },
+  {
+    "ts": 1782105300000,
+    "timestamp": "2026-06-22 08:15:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "location": "Kitchen",
+    "event_type": "power",
+    "state": "on",
+    "value": "1"
+  },
+  {
+    "ts": 1782105900000,
+    "timestamp": "2026-06-22 08:25:00",
+    "sensor_id": "medicine_cabinet",
+    "sensor_type": "VIBRATION",
+    "location": "Kitchen",
+    "event_type": "vibration",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782106500000,
+    "timestamp": "2026-06-22 08:35:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "location": "Kitchen",
+    "event_type": "power",
+    "state": "off",
+    "value": "0"
+  },
+  {
+    "ts": 1782108600000,
+    "timestamp": "2026-06-22 09:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782110100000,
+    "timestamp": "2026-06-22 09:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782112200000,
+    "timestamp": "2026-06-22 10:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782113700000,
+    "timestamp": "2026-06-22 10:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782115800000,
+    "timestamp": "2026-06-22 11:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782117300000,
+    "timestamp": "2026-06-22 11:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782119400000,
+    "timestamp": "2026-06-22 12:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782120900000,
+    "timestamp": "2026-06-22 12:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782122700000,
+    "timestamp": "2026-06-22 13:05:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782122880000,
+    "timestamp": "2026-06-22 13:08:00",
+    "sensor_id": "fridge_contact",
+    "sensor_type": "CONTACT",
+    "location": "Kitchen",
+    "event_type": "contact",
+    "state": "open",
+    "value": "1"
+  },
+  {
+    "ts": 1782123060000,
+    "timestamp": "2026-06-22 13:11:00",
+    "sensor_id": "fridge_contact",
+    "sensor_type": "CONTACT",
+    "location": "Kitchen",
+    "event_type": "contact",
+    "state": "closed",
+    "value": "0"
+  },
+  {
+    "ts": 1782123300000,
+    "timestamp": "2026-06-22 13:15:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "location": "Kitchen",
+    "event_type": "power",
+    "state": "on",
+    "value": "1"
+  },
+  {
+    "ts": 1782124500000,
+    "timestamp": "2026-06-22 13:35:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "location": "Kitchen",
+    "event_type": "power",
+    "state": "off",
+    "value": "0"
+  },
+  {
+    "ts": 1782126600000,
+    "timestamp": "2026-06-22 14:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782128100000,
+    "timestamp": "2026-06-22 14:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782130200000,
+    "timestamp": "2026-06-22 15:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782131700000,
+    "timestamp": "2026-06-22 15:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782133800000,
+    "timestamp": "2026-06-22 16:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782135300000,
+    "timestamp": "2026-06-22 16:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782137400000,
+    "timestamp": "2026-06-22 17:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782138900000,
+    "timestamp": "2026-06-22 17:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782140700000,
+    "timestamp": "2026-06-22 18:05:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782140880000,
+    "timestamp": "2026-06-22 18:08:00",
+    "sensor_id": "fridge_contact",
+    "sensor_type": "CONTACT",
+    "location": "Kitchen",
+    "event_type": "contact",
+    "state": "open",
+    "value": "1"
+  },
+  {
+    "ts": 1782141060000,
+    "timestamp": "2026-06-22 18:11:00",
+    "sensor_id": "fridge_contact",
+    "sensor_type": "CONTACT",
+    "location": "Kitchen",
+    "event_type": "contact",
+    "state": "closed",
+    "value": "0"
+  },
+  {
+    "ts": 1782141300000,
+    "timestamp": "2026-06-22 18:15:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "location": "Kitchen",
+    "event_type": "power",
+    "state": "on",
+    "value": "1"
+  },
+  {
+    "ts": 1782142500000,
+    "timestamp": "2026-06-22 18:35:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "location": "Kitchen",
+    "event_type": "power",
+    "state": "off",
+    "value": "0"
+  },
+  {
+    "ts": 1782144300000,
+    "timestamp": "2026-06-22 19:05:00",
+    "sensor_id": "door_balcony_livingroom",
+    "sensor_type": "CONTACT",
+    "location": "Balcony",
+    "event_type": "contact",
+    "state": "open",
+    "value": "1"
+  },
+  {
+    "ts": 1782144600000,
+    "timestamp": "2026-06-22 19:10:00",
+    "sensor_id": "pir_balcony",
+    "sensor_type": "PIR",
+    "location": "Balcony",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782145800000,
+    "timestamp": "2026-06-22 19:30:00",
+    "sensor_id": "pir_balcony",
+    "sensor_type": "PIR",
+    "location": "Balcony",
+    "event_type": "motion",
+    "state": "not_detected",
+    "value": "0"
+  },
+  {
+    "ts": 1782147000000,
+    "timestamp": "2026-06-22 19:50:00",
+    "sensor_id": "door_balcony_livingroom",
+    "sensor_type": "CONTACT",
+    "location": "Balcony",
+    "event_type": "contact",
+    "state": "closed",
+    "value": "0"
+  },
+  {
+    "ts": 1782147900000,
+    "timestamp": "2026-06-22 20:05:00",
+    "sensor_id": "pir_bathroom",
+    "sensor_type": "PIR",
+    "location": "Bathroom",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782148080000,
+    "timestamp": "2026-06-22 20:08:00",
+    "sensor_id": "waterflow_bathtub",
+    "sensor_type": "WATERFLOW",
+    "location": "Bathroom",
+    "event_type": "waterflow",
+    "state": "active",
+    "value": "1"
+  },
+  {
+    "ts": 1782148800000,
+    "timestamp": "2026-06-22 20:20:00",
+    "sensor_id": "waterflow_bathtub",
+    "sensor_type": "WATERFLOW",
+    "location": "Bathroom",
+    "event_type": "waterflow",
+    "state": "inactive",
+    "value": "0"
+  },
+  {
+    "ts": 1782151800000,
+    "timestamp": "2026-06-22 21:10:00",
+    "sensor_id": "pir_living_room",
+    "sensor_type": "PIR",
+    "location": "Living Room",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782153300000,
+    "timestamp": "2026-06-22 21:35:00",
+    "sensor_id": "pir_kitchen",
+    "sensor_type": "PIR",
+    "location": "Kitchen",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782155100000,
+    "timestamp": "2026-06-22 22:05:00",
+    "sensor_id": "stove_power",
+    "sensor_type": "POWER",
+    "location": "Kitchen",
+    "event_type": "power",
+    "state": "on",
+    "value": "1"
+  },
+  {
+    "ts": 1782155520000,
+    "timestamp": "2026-06-22 22:12:00",
+    "sensor_id": "pir_bedroom",
+    "sensor_type": "PIR",
+    "location": "Bedroom",
+    "event_type": "motion",
+    "state": "detected",
+    "value": "1"
+  },
+  {
+    "ts": 1782155700000,
+    "timestamp": "2026-06-22 22:15:00",
+    "sensor_id": "pressure_bed_bedroom",
+    "sensor_type": "PRESSURE",
+    "location": "Bedroom",
+    "event_type": "pressure",
+    "state": "occupied",
+    "value": "1"
+  },
+  {
+    "ts": 1782159300000,
+    "timestamp": "2026-06-22 23:15:00",
+    "sensor_id": "pressure_bed_bedroom",
+    "sensor_type": "PRESSURE",
+    "location": "Bedroom",
+    "event_type": "pressure",
+    "state": "occupied",
+    "value": "1"
+  }
+]
