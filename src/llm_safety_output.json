@@ -1,7 +1,0 @@
-{
-  "mode": "safety_auditor",
-  "should_post_to_dashboard": false,
-  "highest_severity": "none",
-  "summary": "No safety alerts were detected in this hour.",
-  "alerts": []
-}

@@ -72,7 +72,7 @@ def call_ollama_text(system_prompt: str, user_prompt: str, timeout_seconds: int 
         "stream": False,
         "options": {
             "temperature": 0.2,
-            "num_predict": 250
+            "num_predict": 300
         }
     }
 

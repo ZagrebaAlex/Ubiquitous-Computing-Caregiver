@@ -74,6 +74,12 @@ def sleep_hour(base):
         make_sensor_event(base + timedelta(minutes=15), "pressure_bed_bedroom", "pressure", "occupied", 1),
     ]
 
+def decline_late_morning_routine(base):
+    return [
+        make_sensor_event(base + timedelta(minutes=45), "pressure_bed_bedroom", "pressure", "empty", 0),
+        make_sensor_event(base + timedelta(minutes=50), "pir_bathroom", "motion", "detected", 1),
+    ]
+
 
 def decline_fridge_hour(base):
     return [
@@ -82,11 +88,49 @@ def decline_fridge_hour(base):
         make_sensor_event(base + timedelta(minutes=25), "fridge_contact", "contact", "closed", 0),
     ]
 
+def decline_late_medication_hour(base):
+    return [
+        make_sensor_event(base + timedelta(minutes=45), "medicine_cabinet", "vibration", "detected", 1),
+        make_sensor_event(base + timedelta(minutes=50), "pir_kitchen", "motion", "detected", 1),
+    ]
+
+def decline_no_activity_hour(base):
+    return [
+        make_sensor_event(base + timedelta(minutes=10), "pir_living_room", "motion", "detected", 1),
+    ]
+
+
+def decline_long_sedentary_start(base):
+    return [
+        make_sensor_event(base + timedelta(minutes=0), "couch_pressure_living_room", "pressure", "occupied", 1),
+    ]
+
+
+def decline_long_sedentary_end(base):
+    return [
+        make_sensor_event(base + timedelta(minutes=30), "couch_pressure_living_room", "pressure", "empty", 0),
+    ]
+
+
+def decline_delayed_lunch_hour(base):
+    return [
+        make_sensor_event(base + timedelta(minutes=30), "pir_kitchen", "motion", "detected", 1),
+        make_sensor_event(base + timedelta(minutes=32), "fridge_contact", "contact", "open", 1),
+        make_sensor_event(base + timedelta(minutes=35), "fridge_contact", "contact", "closed", 0),
+        make_sensor_event(base + timedelta(minutes=38), "stove_power", "power", "on", 1),
+        make_sensor_event(base + timedelta(minutes=55), "stove_power", "power", "off", 0),
+    ]
 
 def decline_sedentary_hour(base):
     return [
         make_sensor_event(base + timedelta(minutes=0), "couch_pressure_living_room", "pressure", "occupied", 1),
         make_sensor_event(base + timedelta(minutes=59), "couch_pressure_living_room", "pressure", "empty", 0),
+    ]
+
+def decline_water_left_running_hour(base):
+    return [
+        make_sensor_event(base + timedelta(minutes=5), "waterflow_sink", "waterflow", "active", 1),
+        make_sensor_event(base + timedelta(minutes=25), "waterflow_sink", "waterflow", "inactive", 0),
     ]
 
 
@@ -135,12 +179,46 @@ def build_normal_day_hour(base_day, hour):
 def build_decline_day_hour(base_day, hour):
     base = hour_start(base_day, hour)
 
-    if hour == 13:
-        return decline_fridge_hour(base)
-    if hour == 15:
-        return decline_sedentary_hour(base)
+    if hour == 7:
+        return decline_late_morning_routine(base)
 
-    return build_normal_day_hour(base_day, hour)
+    if hour == 8:
+        return breakfast_hour(base)
+
+    if hour == 9:
+        return decline_late_medication_hour(base)
+
+    if hour == 13:
+        return decline_no_activity_hour(base)
+
+    if hour == 14:
+        return decline_delayed_lunch_hour(base)
+
+    if hour == 15:
+        return decline_long_sedentary_start(base)
+
+    if hour == 16:
+        return decline_long_sedentary_end(base)
+
+    if hour == 17:
+        return decline_fridge_hour(base)
+
+    if hour == 18:
+        return decline_no_activity_hour(base)
+
+    if hour == 19:
+        return decline_water_left_running_hour(base)
+
+    if hour == 20:
+        return decline_no_activity_hour(base)
+
+    if hour == 21:
+        return normal_hour(base)
+
+    if hour == 23:
+        return sleep_hour(base)
+
+    return normal_hour(base)
 
 
 def build_hazard_day_hour(base_day, hour):
@@ -148,6 +226,21 @@ def build_hazard_day_hour(base_day, hour):
 
     if hour == 3:
         return hazard_night_exit_hour(base)
+
+    if hour == 4:
+        return hazard_door_open_night_hour(base)
+
+    if hour == 17:
+        return decline_fridge_hour(base)
+
+    if hour == 19:
+        return [
+            make_sensor_event(base + timedelta(minutes=5), "stove_power", "power", "on", 1),
+            make_sensor_event(base + timedelta(minutes=10), "entrance_door", "contact", "open", 1),
+            make_sensor_event(base + timedelta(minutes=11), "floor_mat", "pressure", "pressed", 1),
+            make_sensor_event(base + timedelta(minutes=12), "entrance_door", "contact", "closed", 0),
+        ]
+
     if hour == 22:
         return hazard_stove_sleep_hour(base)
 

@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from datetime import datetime, timedelta
 
-from fetch_events import fetch_events, fetch_events_between, parse_datetime
+from fetch_events import fetch_events, fetch_events_between
 from routine_auditor import run_routine_rules
 from llm_client import call_ollama_text, save_json
 
@@ -16,18 +16,14 @@ ROUTINE_ALERTS_PATH = BASE_DIR / "narrator_routine_alerts.json"
 DASHBOARD_24H_PATH = BASE_DIR / "dashboard_posts_24h.json"
 LLM_NARRATOR_OUTPUT_PATH = BASE_DIR / "llm_narrator_output.json"
 
-NARRATOR_PROMPT_PATHS = [
-    PROJECT_DIR / "LLM_Narrator_Prompt.md",
-    BASE_DIR / "LLM_Narrator_Prompt.md",
-]
+NARRATOR_PROMPT_PATH = PROJECT_DIR / "LLM_Narrator_Prompt.md"
 
 
 def load_narrator_prompt() -> str:
-    for path in NARRATOR_PROMPT_PATHS:
-        if path.exists():
-            return path.read_text(encoding="utf-8")
+    if not NARRATOR_PROMPT_PATH.exists():
+        raise FileNotFoundError(f"Could not find narrator prompt: {NARRATOR_PROMPT_PATH}")
 
-    raise FileNotFoundError("Could not find LLM_Narrator_Prompt.md")
+    return NARRATOR_PROMPT_PATH.read_text(encoding="utf-8")
 
 
 def load_json_file(path: Path, default):
@@ -39,7 +35,7 @@ def load_json_file(path: Path, default):
 
 
 def compact_daily_summary(events: list[dict]) -> dict:
-    summary = {
+    full_summary = {
         "wake_up_times": [],
         "sleep_times": [],
         "medicine_times": [],
@@ -65,65 +61,85 @@ def compact_daily_summary(events: list[dict]) -> dict:
             continue
 
         if sensor_id == "pressure_bed_bedroom" and state == "empty":
-            summary["wake_up_times"].append(timestamp)
+            full_summary["wake_up_times"].append(timestamp)
 
         elif sensor_id == "pressure_bed_bedroom" and state == "occupied":
-            summary["sleep_times"].append(timestamp)
+            full_summary["sleep_times"].append(timestamp)
 
         elif sensor_id == "medicine_cabinet":
-            summary["medicine_times"].append(timestamp)
+            full_summary["medicine_times"].append(timestamp)
 
         elif sensor_id == "pir_kitchen":
-            summary["kitchen_activity_times"].append(timestamp)
+            full_summary["kitchen_activity_times"].append(timestamp)
 
         elif sensor_id == "fridge_contact":
-            summary["fridge_activity"].append(f"{timestamp} {state}")
+            full_summary["fridge_activity"].append(f"{timestamp} {state}")
 
         elif sensor_id == "stove_power":
-            summary["stove_activity"].append(f"{timestamp} {state}")
+            full_summary["stove_activity"].append(f"{timestamp} {state}")
 
         elif sensor_id == "pir_bathroom":
-            summary["bathroom_presence_times"].append(timestamp)
+            full_summary["bathroom_presence_times"].append(timestamp)
 
         elif sensor_id == "waterflow_toilet":
-            summary["toilet_activity"].append(f"{timestamp} {state}")
+            full_summary["toilet_activity"].append(f"{timestamp} {state}")
 
         elif sensor_id == "waterflow_sink":
-            summary["sink_activity"].append(f"{timestamp} {state}")
+            full_summary["sink_activity"].append(f"{timestamp} {state}")
 
         elif sensor_id == "waterflow_bathtub":
-            summary["shower_activity"].append(f"{timestamp} {state}")
+            full_summary["shower_activity"].append(f"{timestamp} {state}")
 
         elif sensor_id in ["pir_balcony", "door_balcony_livingroom", "door_balcony_bedroom"]:
-            summary["balcony_activity"].append(f"{timestamp} {sensor_id} {state}")
+            full_summary["balcony_activity"].append(f"{timestamp} {sensor_id} {state}")
 
         elif sensor_id == "entrance_door":
-            summary["entrance_door_activity"].append(f"{timestamp} {state}")
+            full_summary["entrance_door_activity"].append(f"{timestamp} {state}")
 
         elif sensor_id in ["pressure_sofa_livingroom", "couch_pressure_living_room"]:
-            summary["sedentary_activity"].append(f"{timestamp} {sensor_id} {state}")
+            full_summary["sedentary_activity"].append(f"{timestamp} {sensor_id} {state}")
 
-    return summary
+    compact_summary = {
+        "wake_up_times": full_summary["wake_up_times"][:3],
+        "sleep_times": full_summary["sleep_times"][:3],
+        "medicine_times": full_summary["medicine_times"][:3],
+        "kitchen_activity_count": len(full_summary["kitchen_activity_times"]),
+        "fridge_activity": full_summary["fridge_activity"][:6],
+        "stove_activity": full_summary["stove_activity"][:6],
+        "bathroom_presence_count": len(full_summary["bathroom_presence_times"]),
+        "toilet_activity": full_summary["toilet_activity"][:4],
+        "sink_activity": full_summary["sink_activity"][:4],
+        "shower_activity": full_summary["shower_activity"][:4],
+        "balcony_activity": full_summary["balcony_activity"][:4],
+        "entrance_door_activity": full_summary["entrance_door_activity"][:4],
+        "sedentary_activity": full_summary["sedentary_activity"][:4],
+        "total_events_seen": full_summary["total_events_seen"],
+    }
+
+    return compact_summary
 
 
-def build_narrator_prompt(question: str, daily_summary: dict, dashboard_posts: dict, routine_alerts: dict) -> str:
+def build_narrator_prompt(
+    question: str,
+    daily_summary: dict,
+    dashboard_posts: dict,
+    routine_alerts: dict
+) -> str:
     return f"""
 Caregiver question:
 {question}
 
-IMPORTANT:
-The Safety Auditor dashboard alerts below are confirmed system alerts.
-You must mention every alert in dashboard_posts.posts.
-If any alert has severity "critical", clearly state that a critical safety alert occurred and include the time it occurred.
-Never say there were no safety concerns if dashboard_posts.posts is not empty.
+Reply in natural human language based on the daily activity summary
 
-Don't post the events as is, reply in human language, in sentences, explain what the data shows followed up with, as shown
-by the sensor activity at x time.
+Mention confirmed Safety Auditor alerts if any exist.
+If any confirmed alert has severity "critical", clearly say that a critical safety alert occurred and include the time.
 
-Compact daily activity summary:
+Here is the data from today
+
+Daily activity summary:
 {json.dumps(daily_summary, indent=2, ensure_ascii=False)}
 
-Existing dashboard alerts from Safety Auditor:
+Confirmed Safety Auditor alerts:
 {json.dumps(dashboard_posts, indent=2, ensure_ascii=False)}
 
 Routine auditor output:
@@ -131,33 +147,13 @@ Routine auditor output:
 """
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Narrator for caregiver questions.")
-    parser.add_argument(
-        "--question",
-        type=str,
-        default="What did my mother do today?"
-    )
-    parser.add_argument("--date", type=str, default=None)
-    parser.add_argument("--start", type=str, default=None)
-    parser.add_argument("--end", type=str, default=None)
-    parser.add_argument("--hours", type=int, default=24)
-
-    args = parser.parse_args()
-
-    if args.date:
-        start_dt = datetime.fromisoformat(args.date)
+def run_narrator(question: str, date: str | None = None) -> dict:
+    if date:
+        start_dt = datetime.fromisoformat(date)
         end_dt = start_dt + timedelta(days=1)
         sensor_data = fetch_events_between(start_dt, end_dt)
-
-    elif args.start and args.end:
-        sensor_data = fetch_events_between(
-            parse_datetime(args.start),
-            parse_datetime(args.end)
-        )
-
     else:
-        sensor_data = fetch_events(lookback_hours=args.hours)
+        sensor_data = fetch_events(lookback_hours=24)
 
     save_json(sensor_data, DAILY_SENSOR_DATA_PATH)
 
@@ -181,25 +177,40 @@ def main():
 
     system_prompt = load_narrator_prompt()
     user_prompt = build_narrator_prompt(
-        question=args.question,
+        question=question,
         daily_summary=daily_summary,
         dashboard_posts=dashboard_posts,
         routine_alerts=routine_alerts
     )
 
     answer = call_ollama_text(system_prompt, user_prompt, timeout_seconds=300)
-    llm_output = {
+
+    result = {
         "mode": "narrator",
-        "question": args.question,
-        "answer": answer
+        "answer": answer,
+        "confidence": "medium",
+        "reason": "Answer generated from compact 24h activity summary, dashboard alerts, and routine-auditor context.",
+        "alerts": dashboard_posts.get("posts", [])
     }
 
-    save_json(llm_output, LLM_NARRATOR_OUTPUT_PATH)
-    print(answer)
+    save_json(result, LLM_NARRATOR_OUTPUT_PATH)
+    return result
 
-    print(f"24h sensor data saved to: {DAILY_SENSOR_DATA_PATH}")
-    print(f"Compact daily summary saved to: {DAILY_SUMMARY_PATH}")
-    print(f"Routine alerts saved to: {ROUTINE_ALERTS_PATH}")
+
+def main():
+    parser = argparse.ArgumentParser(description="Narrator for caregiver questions.")
+    parser.add_argument("--question", type=str, default="What did my mother do today?")
+    parser.add_argument("--date", type=str, default=None)
+
+    args = parser.parse_args()
+
+    result = run_narrator(
+        question=args.question,
+        date=args.date
+    )
+
+    print(result["answer"])
+    print()
     print(f"Narrator output saved to: {LLM_NARRATOR_OUTPUT_PATH}")
 
 

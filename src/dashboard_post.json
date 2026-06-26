@@ -1,7 +1,0 @@
-{
-  "type": "dashboard_post",
-  "should_post": false,
-  "highest_severity": "none",
-  "summary": "No safety alerts were detected in this hour.",
-  "alerts": []
-}
